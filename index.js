@@ -78,6 +78,19 @@ bot.on('left_chat_member', (msg) => {
   bot.sendMessage(msg.chat.id, `До свидания, ${name}! 👋`);
 });
 
+// Обработка команд /start и /help для вывода кнопок
+bot.onText(/\/(start|help)/, (msg) => {
+  const opts = {
+    reply_markup: {
+      keyboard: [
+        [{ text: 'кто зашел' }, { text: 'кто вышел' }]
+      ],
+      resize_keyboard: true // чтобы кнопки не были гигантскими
+    }
+  };
+  bot.sendMessage(msg.chat.id, 'Привет! Я бот-регистратор. 🕵️‍♂️\nВот мои команды, просто нажмите на нужную кнопку:', opts);
+});
+
 // Обработка обычных сообщений с запросами
 bot.on('message', (msg) => {
   // Пропускаем системные сообщения, чтобы бот реагировал только на текст
