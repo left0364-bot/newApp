@@ -47,6 +47,9 @@ bot.on('new_chat_members', (msg) => {
     if (!data.joined.some(u => u.id === user.id)) {
       data.joined.push(entry);
     }
+    
+    // Приветствие в чате
+    bot.sendMessage(msg.chat.id, `Добро пожаловать в группу, ${name}! 👋`);
   });
   
   writeData(data);
@@ -70,6 +73,9 @@ bot.on('left_chat_member', (msg) => {
     data.left.push(entry);
   }
   writeData(data);
+  
+  // Прощание в чате
+  bot.sendMessage(msg.chat.id, `До свидания, ${name}! 👋`);
 });
 
 // Обработка обычных сообщений с запросами
