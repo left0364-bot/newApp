@@ -1,5 +1,9 @@
 name: Telegram Bot
 
+concurrency:
+  group: telegram-bot
+  cancel-in-progress: true
+
 on:
   push:
     branches: [ main, master ]
