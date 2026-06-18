@@ -78,8 +78,8 @@ bot.on('left_chat_member', (msg) => {
   bot.sendMessage(msg.chat.id, `До свидания, ${name}! 👋`);
 });
 
-// Обработка команд /start и /help для вывода кнопок
-bot.onText(/\/(start|help)/, (msg) => {
+// Обработка команд /start, /help и слова "команды" для вывода кнопок
+bot.onText(/(^\/start|^\/help|^команды)/i, (msg) => {
   const opts = {
     reply_markup: {
       keyboard: [
