@@ -96,12 +96,12 @@ bot.on('message', (msg) => {
   // Пропускаем системные сообщения, чтобы бот реагировал только на текст
   if (!msg.text) return;
   
-  // Приводим текст к нижнему регистру и удаляем вопросительные знаки для упрощения поиска
-  const cleanText = msg.text.toLowerCase().replace(/\?/g, '');
+  // Удаляем все пробелы и знаки вопроса, приводим к нижнему регистру
+  const cleanText = msg.text.toLowerCase().replace(/[\s?]/g, '');
   
-  // Списки возможных фраз
-  const joinedPhrases = ['кто зашел', 'хто зайшов', 'хто зашел', 'кто зайшов'];
-  const leftPhrases = ['кто вышел', 'хто вийшов', 'хто вышел', 'кто вийшов'];
+  // Списки возможных фраз (пишем слитно, так как пробелы уже удалены из текста)
+  const joinedPhrases = ['ктозашел', 'хтозайшов', 'хтозашел', 'ктозайшов'];
+  const leftPhrases = ['ктовышел', 'хтовийшов', 'хтовышел', 'ктовийшов'];
   
   const isJoinedQuery = joinedPhrases.some(phrase => cleanText.includes(phrase));
   const isLeftQuery = leftPhrases.some(phrase => cleanText.includes(phrase));
