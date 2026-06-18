@@ -77,10 +77,18 @@ bot.on('message', (msg) => {
   // Пропускаем системные сообщения, чтобы бот реагировал только на текст
   if (!msg.text) return;
   
-  const text = msg.text.toLowerCase();
+  // Приводим текст к нижнему регистру и удаляем вопросительные знаки для упрощения поиска
+  const cleanText = msg.text.toLowerCase().replace(/\?/g, '');
   
-  // Реакция на фразу "кто зашел"
-  if (text.includes('кто зашел')) {
+  // Списки возможных фраз
+  const joinedPhrases = ['кто зашел', 'хто зайшов', 'хто зашел', 'кто зайшов'];
+  const leftPhrases = ['кто вышел', 'хто вийшов', 'хто вышел', 'кто вийшов'];
+  
+  const isJoinedQuery = joinedPhrases.some(phrase => cleanText.includes(phrase));
+  const isLeftQuery = leftPhrases.some(phrase => cleanText.includes(phrase));
+  
+  // Реакция на фразы "кто зашел"
+  if (isJoinedQuery) {
     const data = readData();
     if (data.joined.length === 0) {
       bot.sendMessage(msg.chat.id, 'Пока никто не зашел.');
@@ -94,8 +102,8 @@ bot.on('message', (msg) => {
     bot.sendMessage(msg.chat.id, response);
   }
   
-  // Реакция на фразу "кто вышел"
-  if (text.includes('кто вышел')) {
+  // Реакция на фразы "кто вышел"
+  if (isLeftQuery) {
     const data = readData();
     if (data.left.length === 0) {
       bot.sendMessage(msg.chat.id, 'Пока никто не вышел.');
